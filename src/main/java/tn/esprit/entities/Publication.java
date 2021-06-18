@@ -1,4 +1,4 @@
-package esprit.com.tn.model;
+package tn.esprit.entities;
 
 public class Publication {
 
