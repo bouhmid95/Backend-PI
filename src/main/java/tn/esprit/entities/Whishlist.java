@@ -1,5 +1,12 @@
 package tn.esprit.entities;
 
-public class Whishlist {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Whishlist implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 }

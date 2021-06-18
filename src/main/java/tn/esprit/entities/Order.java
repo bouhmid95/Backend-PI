@@ -1,31 +1,45 @@
 package tn.esprit.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Order {
-	
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
+import org.springframework.data.annotation.Id;
+
+@Entity
+public class Order implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String title;
 	private Date orderDate;
 	private String status;
 	private String typePaiement;
-	
-	
+
 	public Order(String title, Date orderDate) {
 		super();
 		this.title = title;
 		this.orderDate = orderDate;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public Date getOrderDate() {
 		return orderDate;
 	}
+
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
@@ -45,10 +59,5 @@ public class Order {
 	public void setTypePaiement(String typePaiement) {
 		this.typePaiement = typePaiement;
 	}
-	
-	
-	
-	
-	
 
 }

@@ -1,5 +1,12 @@
 package tn.esprit.entities;
 
-public class Reclamation {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+
+@Entity
+public class Reclamation implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 }
