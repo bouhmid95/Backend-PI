@@ -14,28 +14,28 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public int addUser(User user) {
-		// TODO Auto-generated method stub
-		return 0;
+		userRepository.save(user);
+		return 0;// user.getId();
 	}
 
 	@Override
-	public int deleteUser(int idUser) {
-		// TODO Auto-generated method stub
-		return 0;
+	public User deleteUser(int idUser) {
+		User user = userRepository.findById(idUser).orElse(null);
+		userRepository.delete(user);
+		return user;
 	}
 
 	@Override
-	public int updateUser(User employe) {
-		// TODO Auto-generated method stub
+	public int updateUser(User user) {
+		// User oldUser=userRepository.findById(user.getId()).orElse(null);
+		// oldUser
 		return 0;
 	}
 
 	@Override
 	public User findUser(int idUser) {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findById(idUser).orElse(null);
 	}
-
-	
 
 }

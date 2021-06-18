@@ -6,9 +6,9 @@ public interface IUserService {
 
 	public int addUser(User user);
 
-	public int deleteUser(int idUser);
+	public User deleteUser(int idUser);
 
-	public int updateUser(User employe);
+	public int updateUser(User user);
 
 	public User findUser(int idUser);
 
