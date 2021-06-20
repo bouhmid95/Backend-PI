@@ -4,15 +4,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String content;
 	private Date publicationDate;
+
+	@ManyToOne
+	private Publication publication;
+
+	public Comment() {
+		super();
+	}
 
 	public Comment(int id, String content) {
 		super();
@@ -44,6 +57,14 @@ public class Comment implements Serializable {
 
 	public void setPublicationDate(Date publicationDate) {
 		this.publicationDate = publicationDate;
+	}
+
+	public Publication getPublication() {
+		return publication;
+	}
+
+	public void setPublication(Publication publication) {
+		this.publication = publication;
 	}
 
 }

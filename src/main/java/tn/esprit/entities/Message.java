@@ -6,8 +6,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Message implements Serializable {
@@ -19,12 +19,38 @@ public class Message implements Serializable {
 	private int id;
 	private Date dateMessage;
 	private String message;
+	@ManyToOne
+	private User userSour;
+	@ManyToOne
+	private User userDest;
 
-	public Message(int id, String message) {
+	public Message(int id, Date dateMessage, String message, User userSour, User userDest) {
 		super();
 		this.id = id;
-		this.dateMessage = new Date();
+		this.dateMessage = dateMessage;
 		this.message = message;
+		this.userSour = userSour;
+		this.userDest = userDest;
+	}
+
+	public Message() {
+		super();
+	}
+
+	public User getUserSour() {
+		return userSour;
+	}
+
+	public void setUserSour(User userSour) {
+		this.userSour = userSour;
+	}
+
+	public User getUserDest() {
+		return userDest;
+	}
+
+	public void setUserDest(User userDest) {
+		this.userDest = userDest;
 	}
 
 	public int getId() {

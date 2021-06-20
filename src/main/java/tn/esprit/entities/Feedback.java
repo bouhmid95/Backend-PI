@@ -1,14 +1,13 @@
 package tn.esprit.entities;
 
 import java.io.Serializable;
-
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Feedback implements Serializable {
@@ -20,12 +19,27 @@ public class Feedback implements Serializable {
 	private int id;
 	private float rate;
 	private Date dateRating;
+	@ManyToOne
+	private Product product;
 
-	public Feedback(int id, float rate) {
+	public Feedback(int id, float rate, Date dateRating, Product product) {
 		super();
 		this.id = id;
 		this.rate = rate;
-		this.dateRating = new Date();
+		this.dateRating = dateRating;
+		this.product = product;
+	}
+
+	public Feedback() {
+		super();
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public int getId() {

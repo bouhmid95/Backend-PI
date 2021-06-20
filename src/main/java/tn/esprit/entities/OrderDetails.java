@@ -6,10 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class Stock implements Serializable {
+public class OrderDetails implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,18 +17,21 @@ public class Stock implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private int qte;
-	@OneToOne
+	@ManyToOne
 	private Product product;
+	@ManyToOne
+	private Order order;
 
-	public Stock() {
+	public OrderDetails() {
 		super();
 	}
 
-	public Stock(int id, int qte, Product product) {
+	public OrderDetails(int id, int qte, Product product, Order order) {
 		super();
 		this.id = id;
 		this.qte = qte;
 		this.product = product;
+		this.order = order;
 	}
 
 	public int getId() {
@@ -53,6 +56,14 @@ public class Stock implements Serializable {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
 	}
 
 }

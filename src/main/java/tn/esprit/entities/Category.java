@@ -5,8 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 @Entity
 public class Category implements Serializable {
@@ -16,11 +15,17 @@ public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	private String code;
 	private String name;
 
-	public Category(int id, String name) {
+	public Category() {
+		super();
+	}
+
+	public Category(int id, String code, String name) {
 		super();
 		this.id = id;
+		this.code = code;
 		this.name = name;
 	}
 
@@ -38,6 +43,14 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }
