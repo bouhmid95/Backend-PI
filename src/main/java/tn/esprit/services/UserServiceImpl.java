@@ -15,7 +15,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public int addUser(User user) {
 		userRepository.save(user);
-		return 0;// user.getId();
+		return user.getId();
 	}
 
 	@Override
@@ -27,8 +27,14 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public int updateUser(User user) {
-		// User oldUser=userRepository.findById(user.getId()).orElse(null);
-		// oldUser
+		User oldUser = userRepository.findById(user.getId()).orElse(null);
+		oldUser.setFirstName(user.getFirstName());
+		oldUser.setLastName(user.getLastName());
+		oldUser.setEmail(user.getEmail());
+		oldUser.setUsername(user.getUsername());
+		oldUser.setPassword(user.getPassword());
+		oldUser.setUserRole(user.getUserRole());
+		userRepository.save(oldUser);
 		return 0;
 	}
 
