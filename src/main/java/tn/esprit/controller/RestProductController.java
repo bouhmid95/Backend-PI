@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.Product;
 import tn.esprit.services.IProductService;
 
+@RestController
 public class RestProductController {
 	
 	private static final Logger logger = Logger.getLogger(RestControlUser.class);
