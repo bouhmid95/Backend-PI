@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.Whishlist;
-import tn.esprit.services.IWishlistService;
+import tn.esprit.services.WishListServiceImp;
 
 @RestController
 public class RestWishlistController {
@@ -21,7 +21,7 @@ public class RestWishlistController {
 	private static final Logger logger = Logger.getLogger(RestWishlistController.class);
 
 	@Autowired
-	IWishlistService wishListServices;
+	WishListServiceImp wishListServices;
 	
 
 	@PostMapping("/addWhishlist")

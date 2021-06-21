@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.Reclamation;
-import tn.esprit.services.IReclamationService;
+import tn.esprit.services.ReclamationServiceImp;
 
 @RestController
 public class RestReclamationController {
@@ -21,7 +21,7 @@ public class RestReclamationController {
 	private static final Logger logger = Logger.getLogger(RestReclamationController.class);
 	
 	@Autowired
-	IReclamationService reclamationServices;
+	ReclamationServiceImp reclamationServices;
 	
 
 	@PostMapping("/addReclamation")

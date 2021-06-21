@@ -2,6 +2,8 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import tn.esprit.entities.Reclamation;
 
 public interface IReclamationService {
