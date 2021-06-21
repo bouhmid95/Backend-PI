@@ -26,6 +26,7 @@ public class Order implements Serializable {
 
 	@ManyToOne
 	private DeliveryMan deliveryMan;
+	
 	@ManyToOne
 	private User user;
 
