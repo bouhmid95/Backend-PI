@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,12 +27,7 @@ public class RestControllerDeliveryMan {
 	@Autowired
 	IDeliveryManService iDeliveryManService;
 	
-	@GetMapping("/")
-	public String test() {
-		logger.info("----test ---");
 	
-		return "hello";
-	}
 	
 	@PostMapping("/adddvm")
 	@ResponseBody
@@ -53,6 +50,14 @@ public class RestControllerDeliveryMan {
 		logger.info("---- delete User Méthode ---");
 		return iDeliveryManService.deleteDeliveryMan(id);
 	}
+	
+	@GetMapping(value = "/")
+	public List<DeliveryMan> listDeliveryMan() {
+		logger.info("----getList DeliveryMan Méthode ---");
+		return iDeliveryManService.listDeliveryMan();
+	}
+	
+	
 
 	
 	
