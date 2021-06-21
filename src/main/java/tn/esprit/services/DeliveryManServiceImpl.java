@@ -46,16 +46,7 @@ public class DeliveryManServiceImpl implements IDeliveryManService {
 			deliveryManRepository.save(deliv);
 			return 1;
 		}
-		
-//		oldUser.setFirstName(user.getFirstName());
-//		oldUser.setLastName(user.getLastName());
-//		oldUser.setEmail(user.getEmail());
-//		oldUser.setUsername(user.getUsername());
-//		oldUser.setPassword(user.getPassword());
-//		oldUser.setUserRole(user.getUserRole());
-//		userRepository.save(oldUser);
-		
-		
+			
 		return 0;
 	}
 
@@ -69,6 +60,12 @@ public class DeliveryManServiceImpl implements IDeliveryManService {
 	public String affectOrdersToDeliveryMan(List<Order> orders,int idDeliveryMan) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<DeliveryMan> listDeliveryMan() {
+		// TODO Auto-generated method stub
+		 return (List<DeliveryMan>) deliveryManRepository.findAll();
 	}
 
 

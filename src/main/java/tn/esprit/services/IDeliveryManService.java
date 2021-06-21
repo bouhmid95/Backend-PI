@@ -16,5 +16,7 @@ public interface IDeliveryManService {
 	public DeliveryMan findDeliveryMan(int idDeliveryMan);
 	
 	public String affectOrdersToDeliveryMan(List<Order> orders,int idDeliveryMan);
+	
+	public List<DeliveryMan> listDeliveryMan();
 
 }
