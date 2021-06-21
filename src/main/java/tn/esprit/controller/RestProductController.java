@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -8,10 +10,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.Product;
 import tn.esprit.services.IProductService;
 
+@RestController
 public class RestProductController {
 	
 	private static final Logger logger = Logger.getLogger(RestControlUser.class);
@@ -36,7 +40,7 @@ public class RestProductController {
 		return product;
 	}
 
-	@DeleteMapping(value = "/deleteUser/{idProduct}")
+	@DeleteMapping(value = "/deleteProduct/{idProduct}")
 	public Product deleteProduct(@PathVariable("idProduct") int idProduct) {
 		logger.info("---- delete product Méthode ---");
 		return productServices.deleteProduct(idProduct);
@@ -53,6 +57,12 @@ public class RestProductController {
 		logger.warn("This is a warn message");
 		logger.error("This is an error message");
 		return productServices.findProduct(idProduct);
+	}
+
+	@GetMapping(value = "/findAllProduct")
+	@ResponseBody
+	public List<Product> findAllProduct() {
+		return productServices.findAllProduct();
 	}
 
 }

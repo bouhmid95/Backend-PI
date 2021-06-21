@@ -1,5 +1,7 @@
 package tn.esprit.services;
 
+import java.util.List;
+
 import tn.esprit.entities.Product;
 
 public interface IProductService {
@@ -12,5 +14,7 @@ public interface IProductService {
 	public int updateProduct(Product product);
 
 	public Product findProduct(int idProduct);
+	
+	public List<Product> findAllProduct();
 
 }
