@@ -16,7 +16,7 @@ public class Subscription implements Serializable {
 	private int id;
 	private String type;
 	
-	@OneToOne
+	
 	private User user ;
 
 	public Subscription(int id, String type, User user) {

@@ -54,7 +54,7 @@ public class RestWishlistController {
 		return wishListServices.findWishList(idWhishlist);
 	}
 
-	@GetMapping(value = "/findAllReclamation")
+	@GetMapping(value = "/findAllWishList")
 	@ResponseBody
 	public List<Whishlist> findAllWishList() {
 		return wishListServices.findAllWishList();
