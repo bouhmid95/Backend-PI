@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +22,14 @@ public class RestCategoryController {
 	@Autowired
 	ICategoryService categoryService;
 	
+	@PostMapping("/addCategory")
+	@ResponseBody
+	public Category addCategory(@RequestBody Category category) {
+		logger.info("---- ajouter User Méthode ---");
+		categoryService.addCategory(category);
+		return category;
+	}
+	
 	@PostMapping("/updateCategory")
 	@ResponseBody
 	public Category updateCategory(@RequestBody Category category) {
@@ -28,7 +38,7 @@ public class RestCategoryController {
 		return category;
 	}
 
-	@DeleteMapping(value = "/deleteUser/{idcategory}")
+	@DeleteMapping(value = "/deleteCategory/{idcategory}")
 	public Category deleteCategory(@PathVariable("idcategory") int idCategory) {
 		logger.info("---- delete category Méthode ---");
 		return categoryService.deleteCategory(idCategory);
@@ -45,6 +55,13 @@ public class RestCategoryController {
 		logger.warn("This is a warn message");
 		logger.error("This is an error message");
 		return categoryService.findCategory(idCategory);
+	}
+	
+	@GetMapping(value = "/findAllCategory")
+	@ResponseBody
+	public List<Category> findAllCategory() {
+		
+		return categoryService.findAllCategory();
 	}
 
 	

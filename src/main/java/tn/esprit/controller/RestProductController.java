@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class RestProductController {
 		return product;
 	}
 
-	@DeleteMapping(value = "/deleteUser/{idProduct}")
+	@DeleteMapping(value = "/deleteProduct/{idProduct}")
 	public Product deleteProduct(@PathVariable("idProduct") int idProduct) {
 		logger.info("---- delete product Méthode ---");
 		return productServices.deleteProduct(idProduct);
@@ -55,6 +57,12 @@ public class RestProductController {
 		logger.warn("This is a warn message");
 		logger.error("This is an error message");
 		return productServices.findProduct(idProduct);
+	}
+
+	@GetMapping(value = "/findAllProduct")
+	@ResponseBody
+	public List<Product> findAllProduct() {
+		return productServices.findAllProduct();
 	}
 
 }
