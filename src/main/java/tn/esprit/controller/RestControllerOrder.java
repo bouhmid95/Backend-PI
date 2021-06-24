@@ -1,6 +1,12 @@
 package tn.esprit.controller;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +16,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.itextpdf.text.Document;
 
 import tn.esprit.entities.Order;
 import tn.esprit.entities.User;
 import tn.esprit.services.OrderServiceImpl;
+import tn.esprit.util.pdf.PDFGenerator;
 
 @RestController
 public class RestControllerOrder {
@@ -24,6 +34,9 @@ public class RestControllerOrder {
 
 	@Autowired
 	private OrderServiceImpl orderService;
+	
+	@Autowired
+	public PDFGenerator pdfGenerator ;
 	
 	@PostMapping("/addOrder")
 	@ResponseBody
@@ -48,6 +61,28 @@ public class RestControllerOrder {
 	@GetMapping("/ListOrder")
 	public List<Order> findAllOrder() {
 		return this.orderService.findAllOrder();
+	}
+	
+	@RequestMapping("/downloadOrderFile") 
+	public String method(HttpServletResponse response){
+        try {
+        
+        this.pdfGenerator.generatePdfReport();
+        String fileName = this.pdfGenerator.getPdfNameWithDate();
+		byte [] data = Files.readAllBytes(Paths.get(fileName));
+        response.setContentType("application/" + "pdf");
+        response.addHeader("content-disposition", "attachment; filename=" + fileName);
+        response.addHeader("Content-Length", String.valueOf(data.length));
+        
+        ServletOutputStream sos = response.getOutputStream();
+        sos.write(data);
+        sos.flush();
+        sos.close();
+
+        } catch (Exception exception) {
+        		exception.printStackTrace();
+        }
+		return "" ;
 	}
 
 }
