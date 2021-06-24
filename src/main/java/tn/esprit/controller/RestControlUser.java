@@ -34,7 +34,23 @@ public class RestControlUser {
 	public User addUser(@RequestBody User user) {
 		logger.info("---- ajouter User Méthode ---");
 		iUserService.addUser(user);
-		emailServiceImpl.sendSimpleMessage("aymen.jeddey@esprit.tn", "test", "testtesttesttesttesttest");
+		emailServiceImpl.sendSimpleMessage(user.getEmail(), "Confirmation Code",
+				"your confirmation code is :" + user.getConfirmCode());
+		return user;
+	}
+
+	@PostMapping("/loginUser")
+	@ResponseBody
+	public User loginUser(@RequestBody User userLogin) {
+		User user = iUserService.autentificateUser(userLogin.getUsername(), userLogin.getPassword());
+		return user;
+	}
+
+	@PostMapping("/confirmUser")
+	@ResponseBody
+	public User confirmUser(@RequestBody User userConfirm) {
+		User user = iUserService.confirmUser(userConfirm.getUsername(), userConfirm.getConfirmCode());
+		emailServiceImpl.sendSimpleMessage(user.getEmail(), "Confirmation Account", "Your Account is confirmed :");
 		return user;
 	}
 

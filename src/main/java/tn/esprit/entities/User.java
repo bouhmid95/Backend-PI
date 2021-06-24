@@ -1,12 +1,14 @@
 package tn.esprit.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class User implements Serializable {
@@ -21,13 +23,18 @@ public class User implements Serializable {
 	private String email;
 	private String username;
 	private String password;
-	private UserRole userRole;
+	private String confirmCode;
+	private boolean confirmed = false;
+	private int wrongPassword = 0;
+	private boolean blocked = false;
+	private Date blockedDate;
 
+	@Enumerated(EnumType.STRING)
+	private UserRole userRole;
 
 	public User() {
 		super();
 	}
-
 
 	public User(int id, String firstName, String lastName, String email, String username, String password,
 			UserRole userRole) {
@@ -40,8 +47,6 @@ public class User implements Serializable {
 		this.password = password;
 		this.userRole = userRole;
 	}
-
-
 
 	public int getId() {
 		return id;
@@ -98,8 +103,45 @@ public class User implements Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
-	
 
+	public String getConfirmCode() {
+		return confirmCode;
+	}
 
+	public void setConfirmCode(String confirmCode) {
+		this.confirmCode = confirmCode;
+	}
+
+	public boolean getIsConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(boolean confirmed) {
+		this.confirmed = confirmed;
+	}
+
+	public int getWrongPassword() {
+		return wrongPassword;
+	}
+
+	public void setWrongPassword(int wrongPassword) {
+		this.wrongPassword = wrongPassword;
+	}
+
+	public boolean getIsBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+
+	public Date getBlockedDate() {
+		return blockedDate;
+	}
+
+	public void setBlockedDate(Date blockedDate) {
+		this.blockedDate = blockedDate;
+	}
 
 }
