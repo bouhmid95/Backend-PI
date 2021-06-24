@@ -3,9 +3,12 @@ package tn.esprit.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class User implements Serializable {
@@ -20,11 +23,14 @@ public class User implements Serializable {
 	private String email;
 	private String username;
 	private String password;
+	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
+
 
 	public User() {
 		super();
 	}
+
 
 	public User(int id, String firstName, String lastName, String email, String username, String password,
 			UserRole userRole) {
@@ -37,6 +43,8 @@ public class User implements Serializable {
 		this.password = password;
 		this.userRole = userRole;
 	}
+
+
 
 	public int getId() {
 		return id;
@@ -93,5 +101,8 @@ public class User implements Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+	
+
+
 
 }

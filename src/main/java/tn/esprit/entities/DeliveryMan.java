@@ -18,13 +18,13 @@ public class DeliveryMan implements Serializable {
 	private String firstName;
 	private String lastName;
 	private String adresse;
-	private String codePostal;
+	private int codePostal;
 
 	public DeliveryMan() {
 		super();
 	}
 
-	public DeliveryMan(int id, String firstName, String lastName, String adresse, String codePostal) {
+	public DeliveryMan(int id, String firstName, String lastName, String adresse, int codePostal) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -65,11 +65,11 @@ public class DeliveryMan implements Serializable {
 		this.adresse = adresse;
 	}
 
-	public String getCodePostal() {
+	public int getCodePostal() {
 		return codePostal;
 	}
 
-	public void setCodePostal(String codePostal) {
+	public void setCodePostal(int codePostal) {
 		this.codePostal = codePostal;
 	}
 
