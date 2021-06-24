@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.User;
+import tn.esprit.services.EmailServiceImpl;
 import tn.esprit.services.IUserService;
 
 @RestController
@@ -18,9 +19,10 @@ public class RestControlUser {
 
 	private static final Logger logger = Logger.getLogger(RestControlUser.class);
 
-
 	@Autowired
 	IUserService iUserService;
+	@Autowired
+	EmailServiceImpl emailServiceImpl;
 
 	/*
 	 * http://localhost:8082/SpringMVC/servlet/addUser {"id": 1,"firstName":
@@ -32,6 +34,7 @@ public class RestControlUser {
 	public User addUser(@RequestBody User user) {
 		logger.info("---- ajouter User Méthode ---");
 		iUserService.addUser(user);
+		emailServiceImpl.sendSimpleMessage("aymen.jeddey@esprit.tn", "test", "testtesttesttesttesttest");
 		return user;
 	}
 
@@ -54,11 +57,6 @@ public class RestControlUser {
 	@GetMapping(value = "/findUser/{idUser}")
 	public User findUser(@PathVariable("idUser") int idUser) {
 		logger.info("---- find User Méthode ---");
-		
-		logger.debug("This is a debug message");
-		logger.info("This is an info message");
-		logger.warn("This is a warn message");
-		logger.error("This is an error message");
 		return iUserService.findUser(idUser);
 	}
 
