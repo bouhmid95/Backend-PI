@@ -1,4 +1,6 @@
 package tn.esprit.services;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +46,12 @@ public class OrderService implements IOrderService {
 	public Order findOrder(int idOrder) {
 		// TODO Auto-generated method stub
 		return orderRepo.findById(idOrder).orElse(null) ;
+	}
+
+	@Override
+	public List<Order> findAllOrder() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
