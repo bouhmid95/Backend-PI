@@ -102,4 +102,14 @@ public class Publication implements Serializable {
 		this.nbDisLike = nbDisLike;
 	}
 
+	public boolean isValidated() {
+		return validated;
+	}
+
+	public void setValidated(boolean validated) {
+		this.validated = validated;
+	}
+	
+	
+
 }

@@ -11,10 +11,16 @@ public interface IPublicationService {
 
 	public Publication deletePublication(int idPublication);
 
-	public int updatePublication(Publication user);
+	public int updatePublication(Publication publication);
 
 	public Publication findPublication(int idPublication);
 	
 	public List<Publication> listspublications();
+	
+	public int validatePublication (Publication publication);
+	
+	public int likePublication (Publication publication);
+
+	public int dislikePublication (Publication publication);
 	
 }
