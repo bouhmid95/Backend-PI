@@ -81,4 +81,28 @@ public class UserServiceImpl implements IUserService {
 		return userRepository.findById(idUser).orElse(null);
 	}
 
+	@Override
+	public int BanUser(User user) {
+		User bannedUser = userRepository.findById(user.getId()).orElse(null);
+		if (bannedUser!=null) {
+			bannedUser.setBanned(true);
+			userRepository.save(bannedUser);
+			return 1;
+		}	
+		return 0;
+	}
+	
+	
+	@Override
+	public int unBanUser(User user) {
+		User unbannedUser = userRepository.findById(user.getId()).orElse(null);
+		if (unbannedUser!=null) {
+			unbannedUser.setBanned(false);
+			userRepository.save(unbannedUser);
+			return 1;
+		}	
+		return 0;
+	}
+
+
 }

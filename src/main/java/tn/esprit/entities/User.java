@@ -29,6 +29,7 @@ public class User implements Serializable {
 	private int wrongPassword = 0;
 	private boolean blocked = false;
 	private Date blockedDate;
+	private boolean banned;
 
 	@Enumerated(EnumType.STRING)
 	private UserRole userRole;
@@ -38,7 +39,7 @@ public class User implements Serializable {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String username, String password,
-			UserRole userRole) {
+			UserRole userRole, boolean banned) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -47,6 +48,7 @@ public class User implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.userRole = userRole;
+		this.banned = false;
 	}
 
 	public int getId() {
@@ -144,5 +146,15 @@ public class User implements Serializable {
 	public void setBlockedDate(Date blockedDate) {
 		this.blockedDate = blockedDate;
 	}
+
+	public boolean isBanned() {
+		return banned;
+	}
+
+	public void setBanned(boolean banned) {
+		this.banned = banned;
+	}
+	
+	
 
 }

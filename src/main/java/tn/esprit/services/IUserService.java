@@ -15,5 +15,9 @@ public interface IUserService {
 	public User autentificateUser(String username, String password);
 
 	public User confirmUser(String username, String confirmCode);
+	
+	public int BanUser (User user);
+	
+	public int unBanUser (User user);
 
 }
