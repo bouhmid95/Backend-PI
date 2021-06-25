@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.entities.Comment;
 import tn.esprit.entities.Publication;
 import tn.esprit.services.IPublicationService;
 
@@ -51,6 +54,13 @@ public class RestControllerPublication {
 	public Publication findPublication(@PathVariable("idPublication") int idPublication) {
 		logger.info("---- find publication Method ---");
 		return iPublicationService.findPublication(idPublication);
+	}
+	
+	@GetMapping(value = "/findAllpublications")
+	@ResponseBody
+	public List<Publication> findAllpublications() {
+		
+		return iPublicationService.listspublications();
 	}
 	
 }

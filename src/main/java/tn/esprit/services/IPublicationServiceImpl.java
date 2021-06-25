@@ -1,8 +1,11 @@
 package tn.esprit.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.entities.Comment;
 import tn.esprit.entities.Publication;
 import tn.esprit.entities.User;
 import tn.esprit.repository.PublicationRepository;
@@ -46,5 +49,10 @@ public class IPublicationServiceImpl implements IPublicationService {
 	public Publication findPublication(int idPublication) {
 	Publication publication = publicationRepository.findById(idPublication).orElse(null);
 	return publication;
+	}
+
+	@Override
+	public List<Publication> listspublications() {
+		 return (List<Publication>) publicationRepository.findAll();
 	}
 }
