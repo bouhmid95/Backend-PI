@@ -2,7 +2,6 @@ package tn.esprit.services;
 
 import java.util.List;
 
-import tn.esprit.entities.Comment;
 import tn.esprit.entities.Publication;
 
 

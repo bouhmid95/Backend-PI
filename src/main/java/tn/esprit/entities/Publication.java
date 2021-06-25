@@ -23,13 +23,14 @@ public class Publication implements Serializable {
 	private Date publicationDate;
 	private int nbLike;
 	private int nbDisLike;
+	private boolean validated;
 	@OneToMany(mappedBy = "publication")
 	private List<Comment> comments;
 	@ManyToOne
 	private User user;
 
 	public Publication(int id, String content, Date publicationDate, int nbLike, int nbDisLike, List<Comment> comments,
-			User user) {
+			User user, boolean validated) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -38,6 +39,7 @@ public class Publication implements Serializable {
 		this.nbDisLike = nbDisLike;
 		this.comments = comments;
 		this.user = user;
+		this.validated = false;
 	}
 
 	public Publication() {
