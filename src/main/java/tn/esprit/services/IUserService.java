@@ -16,4 +16,11 @@ public interface IUserService {
 
 	public User confirmUser(String username, String confirmCode);
 
+	public void unlockUser();
+	
+	public void lockUser(User user);
+
+	
+	
+
 }
