@@ -20,4 +20,11 @@ public interface IUserService {
 	
 	public int unBanUser (User user);
 
+	public void unlockUser();
+	
+	public void lockUser(User user);
+
+	
+	
+
 }

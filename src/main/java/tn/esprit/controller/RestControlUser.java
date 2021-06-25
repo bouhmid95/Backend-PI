@@ -42,6 +42,8 @@ public class RestControlUser {
 	@PostMapping("/loginUser")
 	@ResponseBody
 	public User loginUser(@RequestBody User userLogin) {
+		logger.info(userLogin.getUsername() + "-----" + userLogin.getPassword());
+
 		User user = iUserService.autentificateUser(userLogin.getUsername(), userLogin.getPassword());
 		return user;
 	}
@@ -93,5 +95,17 @@ public class RestControlUser {
 		return user;
 	}
 
+
+	@PostMapping("/lockUser")
+	@ResponseBody
+	public User lockUser(@RequestBody User user) {
+		iUserService.lockUser(user);
+		return user;
+	}
+
+	@GetMapping(value = "/unlockUser")
+	public void unlockUser() {
+		iUserService.unlockUser();
+	}
 
 }
