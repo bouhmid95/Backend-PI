@@ -12,4 +12,8 @@ public interface IUserService {
 
 	public User findUser(int idUser);
 
+	public User autentificateUser(String username, String password);
+
+	public User confirmUser(String username, String confirmCode);
+
 }
