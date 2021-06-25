@@ -1,6 +1,7 @@
 package tn.esprit.services;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,13 @@ public class UserServiceImpl implements IUserService {
 			return null;
 	}
 
-
 	public User autentificateUser(String username, String password) {
-		User user = userRepository.getUserAutentificate(username, new BCryptPasswordEncoder().encode(password));
+		User user = userRepository.getUserByUsername(username);
+
+		boolean isPasswordMatches = new BCryptPasswordEncoder().matches(password, user.getPassword());
+		if (!isPasswordMatches) // wrong password
+			user = null;
+
 		if (user != null && user.getIsConfirmed() && !user.getIsBlocked())
 			return user;
 		User userWithWrongPass = userRepository.getUserByUsername(username);
@@ -79,6 +84,26 @@ public class UserServiceImpl implements IUserService {
 	public User findUser(int idUser) {
 		// TODO Auto-generated method stub
 		return userRepository.findById(idUser).orElse(null);
+	}
+
+	@Override
+	public void lockUser(User user) {
+		User oldUser = userRepository.getUserByUsername(user.getUsername());
+		oldUser.setBlockedDate(new Date());
+		oldUser.setBlocked(true);
+		userRepository.save(oldUser);
+	}
+
+	@Override
+	public void unlockUser() {
+		List<User> users = userRepository.getLockedUsers(true);
+		for (User user : users) {
+			if (new Date().compareTo(user.getBlockedDate()) > 0) {
+				user.setBlockedDate(null);
+				user.setBlocked(false);
+				userRepository.save(user);
+			}
+		}
 	}
 
 }
