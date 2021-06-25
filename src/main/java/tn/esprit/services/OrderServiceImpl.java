@@ -3,6 +3,10 @@ package tn.esprit.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,9 @@ public class OrderServiceImpl implements IOrderService {
 	
 	@Autowired
 	private OrderRepository orderRepository ;
+	
+	@PersistenceContext
+    private EntityManager em;
 
 	@Override
 	public int addOrder(Order order) {
@@ -42,6 +49,23 @@ public class OrderServiceImpl implements IOrderService {
 	@Override
 	public List<Order> findAllOrder() {
 		return (ArrayList<Order>) this.orderRepository.findAll();
+	}
+
+	@Override
+	public List<Order> findOrderByUserCriteria(Integer idUser) {
+//		CriteriaBuilder cb = em.getCriteriaBuilder();
+//		 CriteriaQuery<Order> criteriaQuery = cb.createQuery(Order.class); 
+//		 Root<Order> root = criteriaQuery.from(Order.class);
+//		 criteriaQuery.select(root);
+//		 DeliveryMan dv = findDeliveryMan(id);
+////		 ParameterExpression<String> p = cb.parameter(String.class);
+//		 criteriaQuery.select(root).where(cb.equal(root.get("deliveryMan"), dv));
+//		 
+//		 TypedQuery<Order> query = em.createQuery(criteriaQuery);
+////		 query.setParameter(p, prenom);
+//		 try {
+//			 if(
+		return this.orderRepository.findOrderByUserId(idUser);
 	}
 
 }

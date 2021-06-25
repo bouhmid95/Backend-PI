@@ -63,6 +63,11 @@ public class RestControllerOrder {
 		return this.orderService.findAllOrder();
 	}
 	
+	@GetMapping("/findOrderByUser/{idUser}")
+	public List<Order> findOrderByUser(@PathVariable("idUser") Integer idUser) {
+		return this.orderService.findOrderByUserCriteria(idUser);
+	}
+	
 	@RequestMapping("/downloadOrderFile") 
 	public String method(HttpServletResponse response){
         try {
