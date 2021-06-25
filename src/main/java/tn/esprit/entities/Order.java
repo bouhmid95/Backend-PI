@@ -8,8 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Entity(name="Orders")
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Entity
+@Table(name = "Commande")
 public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -27,6 +31,7 @@ public class Order implements Serializable {
 	@ManyToOne
 	private DeliveryMan deliveryMan;
 	
+	@JsonIgnore
 	@ManyToOne
 	private User user;
 
