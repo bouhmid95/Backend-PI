@@ -87,6 +87,28 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	public int BanUser(User user) {
+		User bannedUser = userRepository.findById(user.getId()).orElse(null);
+		if (bannedUser!=null) {
+			bannedUser.setBanned(true);
+			userRepository.save(bannedUser);
+			return 1;
+		}	
+		return 0;
+	}
+	
+	
+	@Override
+	public int unBanUser(User user) {
+		User unbannedUser = userRepository.findById(user.getId()).orElse(null);
+		if (unbannedUser!=null) {
+			unbannedUser.setBanned(false);
+			userRepository.save(unbannedUser);
+			return 1;
+		}	
+		return 0;
+	}
+
 	public void lockUser(User user) {
 		User oldUser = userRepository.getUserByUsername(user.getUsername());
 		oldUser.setBlockedDate(new Date());
@@ -105,5 +127,4 @@ public class UserServiceImpl implements IUserService {
 			}
 		}
 	}
-
 }
