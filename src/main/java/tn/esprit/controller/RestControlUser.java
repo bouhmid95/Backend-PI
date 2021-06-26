@@ -78,6 +78,24 @@ public class RestControlUser {
 		logger.info("---- find User Méthode ---");
 		return iUserService.findUser(idUser);
 	}
+	
+	
+	@PostMapping("/banUser")
+	@ResponseBody
+	public User banUser(@RequestBody User user) {
+		logger.info("---- Ban User Méthode ---");
+		iUserService.BanUser(user);
+		return user;
+	}
+	
+	@PostMapping("/unBanuser")
+	@ResponseBody
+	public User unBanUser(@RequestBody User user) {
+		logger.info("---- UnBan User Méthode ---");
+		iUserService.unBanUser(user);
+		return user;
+	}
+
 
 	@PostMapping("/lockUser")
 	@ResponseBody

@@ -22,6 +22,8 @@ public class Comment implements Serializable {
 
 	@ManyToOne
 	private Publication publication;
+	@ManyToOne
+	private User user;
 
 	public Comment() {
 		super();
@@ -66,5 +68,15 @@ public class Comment implements Serializable {
 	public void setPublication(Publication publication) {
 		this.publication = publication;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 
 }

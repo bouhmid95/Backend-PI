@@ -16,5 +16,6 @@ public interface IOrderService {
 
 	public List<Order> findAllOrder();
 
+	public List<Order> findOrderByUserCriteria(Integer idUser);
 
 }
