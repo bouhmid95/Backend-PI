@@ -54,5 +54,17 @@ public class ReclamationServiceImp implements IReclamationService {
 		return (List<Reclamation>)reclamationRepository.findAll();
 	}
 
+	@Override
+	public int getNumberReclamation() {
+		// TODO Auto-generated method stub
+		return reclamationRepository.getNumberReclamtion();
+	}
+
+	@Override
+	public List<Object> getStatusReclamtionByDate() {
+		// TODO Auto-generated method stub
+		return (List<Object>)reclamationRepository.getStatusReclamtionByDate();
+	}
+
 
 }
