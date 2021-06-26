@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.entities.Order;
 import tn.esprit.entities.Publication;
 import tn.esprit.services.IPublicationService;
 
@@ -84,6 +85,19 @@ public class RestControllerPublication {
 		logger.info("---- Disklike publication Method ---");
 		iPublicationService.dislikePublication(publication);
 		return publication;
+	}
+	
+	@GetMapping("/findPublicationByUser/{idUser}")
+	public List <Publication> findPublicationByUser(@PathVariable("idUser") Integer idUser) {
+		return this.findPublicationByUser(idUser);
+	}
+	
+    // URL : http://localhost:8081/SpringMVC/servlet/getNombreEmployeJPQL
+    @GetMapping(value = "getNombrePublication")
+    @ResponseBody
+	public int getNombrePublication() {
+		
+		return iPublicationService.getNombrePublicationJPQL();
 	}
 	
 	

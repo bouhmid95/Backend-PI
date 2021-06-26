@@ -90,4 +90,14 @@ public class IPublicationServiceImpl implements IPublicationService {
 		}	
 		return 0;
 	}
+
+	@Override
+	public List<Publication> findPublicationByUser(Integer idUser) {
+		return this.publicationRepository.findPublicationByUserId(idUser);
+	}
+	
+	public int getNombrePublicationJPQL() {
+		return publicationRepository.countpublications();
+	}
+	
 }
