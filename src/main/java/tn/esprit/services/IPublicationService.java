@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import tn.esprit.entities.Order;
 import tn.esprit.entities.Publication;
 
 
@@ -22,5 +23,10 @@ public interface IPublicationService {
 	public int likePublication (Publication publication);
 
 	public int dislikePublication (Publication publication);
+	
+	public List<Publication> findPublicationByUser(Integer idUser);
+	
+	public int getNombrePublicationJPQL();
+
 	
 }
