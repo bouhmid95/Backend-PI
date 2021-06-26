@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.itextpdf.text.Document;
 
+import tn.esprit.dto.CountOrderByUser;
 import tn.esprit.entities.Order;
 import tn.esprit.entities.User;
 import tn.esprit.services.OrderServiceImpl;
@@ -66,6 +67,11 @@ public class RestControllerOrder {
 	@GetMapping("/findOrderByUser/{idUser}")
 	public List<Order> findOrderByUser(@PathVariable("idUser") Integer idUser) {
 		return this.orderService.findOrderByUserCriteria(idUser);
+	}
+	
+	@GetMapping("/findOrderNumberForUser")
+	public List<CountOrderByUser> findOrderByUser() {
+		return this.orderService.findNumberOrderForUser();
 	}
 	
 	@RequestMapping("/downloadOrderFile") 
