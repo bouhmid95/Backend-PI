@@ -31,6 +31,7 @@ public class UserServiceImpl implements IUserService {
 		User user = userRepository.getUserByUsername(username);
 		if (user != null && confirmCode.equals(user.getConfirmCode())) {
 			user.setConfirmed(true);
+			user.setConfirmCode(null);
 			userRepository.save(user);
 			return user;
 		} else
@@ -89,23 +90,22 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public int BanUser(User user) {
 		User bannedUser = userRepository.findById(user.getId()).orElse(null);
-		if (bannedUser!=null) {
+		if (bannedUser != null) {
 			bannedUser.setBanned(true);
 			userRepository.save(bannedUser);
 			return 1;
-		}	
+		}
 		return 0;
 	}
-	
-	
+
 	@Override
 	public int unBanUser(User user) {
 		User unbannedUser = userRepository.findById(user.getId()).orElse(null);
-		if (unbannedUser!=null) {
+		if (unbannedUser != null) {
 			unbannedUser.setBanned(false);
 			userRepository.save(unbannedUser);
 			return 1;
-		}	
+		}
 		return 0;
 	}
 
@@ -139,13 +139,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public User updatePassword(String username,String password, String confirmationCode) {
+	public User updatePassword(String username, String password, String confirmationCode) {
 		User user = userRepository.getUserByUsername(username);
 		if (user.getConfirmCode().equals(confirmationCode)) {
 			user.setPassword(new BCryptPasswordEncoder().encode(password));
+			user.setConfirmCode(null);
 			userRepository.save(user);
 		}
 
 		return user;
 	}
+
+	@Override
+	public List statLockUnlockUser() {
+		return userRepository.getLockUnlockUser();
+	}
+
 }

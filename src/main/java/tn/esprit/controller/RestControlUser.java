@@ -1,5 +1,7 @@
 package tn.esprit.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -78,8 +80,7 @@ public class RestControlUser {
 		logger.info("---- find User Méthode ---");
 		return iUserService.findUser(idUser);
 	}
-	
-	
+
 	@PostMapping("/banUser")
 	@ResponseBody
 	public User banUser(@RequestBody User user) {
@@ -87,7 +88,7 @@ public class RestControlUser {
 		iUserService.BanUser(user);
 		return user;
 	}
-	
+
 	@PostMapping("/unBanuser")
 	@ResponseBody
 	public User unBanUser(@RequestBody User user) {
@@ -95,7 +96,6 @@ public class RestControlUser {
 		iUserService.unBanUser(user);
 		return user;
 	}
-
 
 	@PostMapping("/lockUser")
 	@ResponseBody
@@ -122,6 +122,11 @@ public class RestControlUser {
 	@ResponseBody
 	public User updatePassword(@RequestBody User user) {
 		return iUserService.updatePassword(user.getUsername(), user.getPassword(), user.getConfirmCode());
+	}
+
+	@GetMapping(value = "/statLockUnlockUser")
+	public List statLockUnlockUser() {
+		return iUserService.statLockUnlockUser();
 	}
 
 }
