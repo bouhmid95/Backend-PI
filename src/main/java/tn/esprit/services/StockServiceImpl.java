@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.entities.OrderDetails;
 import tn.esprit.entities.Product;
 import tn.esprit.entities.Stock;
-import tn.esprit.entities.User;
 import tn.esprit.repository.OrderDetailsRepository;
 import tn.esprit.repository.ProductRepository;
 import tn.esprit.repository.StockRepository;

@@ -5,7 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import tn.esprit.entities.Stock;
-import tn.esprit.entities.User;
 
 public interface StockRepository extends CrudRepository<Stock, Integer> {
 	
