@@ -1,18 +1,31 @@
 package tn.esprit.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.entities.OrderDetails;
+import tn.esprit.entities.Product;
 import tn.esprit.entities.Stock;
+import tn.esprit.repository.OrderDetailsRepository;
+import tn.esprit.repository.ProductRepository;
 import tn.esprit.repository.StockRepository;
+import tn.esprit.repository.UserRepository;
 
 @Service
 public class StockServiceImpl implements IStockService {
 
 	@Autowired
 	StockRepository stockRepository;
+	@Autowired
+	ProductRepository ProductRepository;
+	@Autowired
+	UserRepository UserRepository;
+	@Autowired
+	OrderDetailsRepository orderDetailsRepository;
+	
 	@Override
 	public int addStock(Stock stock) {
 		stockRepository.save(stock);
@@ -47,9 +60,54 @@ public class StockServiceImpl implements IStockService {
 
 	@Override
 	public List<Stock> findAllStock() {
-		// TODO Auto-generated method stub
 		return (List<Stock>)stockRepository.findAll();
 	}
+
+	@Override
+	public boolean decrementFromStock(List<OrderDetails> DetailsOrder) {
+		for(OrderDetails od : DetailsOrder) {
+			
+			int orderDetailsId = od.getId();
+			
+			OrderDetails orderDetailsInfo = orderDetailsRepository.findById(orderDetailsId).orElse(null);
+			
+			Product product = orderDetailsInfo.getProduct();
+			Stock stockOfProduct = stockRepository.getStockByProduct(product.getId());
+			
+			if(orderDetailsInfo.getQte() > stockOfProduct.getQte()) {
+				return false;
+			}
+			else {
+				stockOfProduct.setQte(stockOfProduct.getQte() - orderDetailsInfo.getQte());
+				stockRepository.save(stockOfProduct);
+			}
+			
+		}
+		return true;
+	}
+
+	@Override
+	public List<Stock> checkAlertStock() {
+	 List<Stock> stock = (List<Stock>) stockRepository.findAll();
+	 ArrayList<Stock> myList = new ArrayList();
+	 
+	 for (Stock st : stock) {
+		 if(st.getQte()<10) {
+			 myList.add(st);
+		 }
+		 
+		}
+	 
+		return myList;
+	}
+
+	@Override
+	public Stock getStockByProduct(int idProduct) {
+		Stock stock = stockRepository.getStockByProduct(idProduct);
+		return stock;
+	}
+	
+	
 	
 	
 
