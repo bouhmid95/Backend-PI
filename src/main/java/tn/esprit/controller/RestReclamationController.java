@@ -83,4 +83,10 @@ public class RestReclamationController {
 	public List<Object> findByStatusDone() {
 		return reclamationServices.findByStatusStartsWith("DONE");
 	}
+	
+	@GetMapping(value = "/findByGivenMessage/{message}")
+	@ResponseBody
+	public List<Object> findByGivenMessage(@PathVariable("message") String message ) {
+		return reclamationServices.searchByMessageLike(message);
+	}
 }

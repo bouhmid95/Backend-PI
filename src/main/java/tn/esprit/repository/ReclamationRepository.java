@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import tn.esprit.entities.Reclamation;
 
@@ -22,5 +23,7 @@ public interface ReclamationRepository extends CrudRepository<Reclamation, Integ
 	
 	List<Object> findByStatusStartsWith(String status);
 	
+	@Query("SELECT p FROM Reclamation p WHERE p.message LIKE %:message%")
+	List<Object> searchByMessageLike(@Param("message") String message);
 
 }
