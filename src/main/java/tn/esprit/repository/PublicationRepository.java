@@ -3,7 +3,6 @@ package tn.esprit.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import tn.esprit.entities.Order;
 import tn.esprit.entities.Publication;
 
 import java.util.List;
@@ -16,6 +15,9 @@ public interface PublicationRepository extends CrudRepository<Publication, Integ
     public int countpublications();
 	
 	
-	@Query("FROM Publication p where p.user.id = :id")
-	public List<Publication> findPublicationByUserId(@Param("id") Integer id);
+	@Query("select p from Publication p join p.user u where u.id=:id")
+	public List<Publication> findPublicationByUserId(@Param("id") int id);
 }
+
+
+	

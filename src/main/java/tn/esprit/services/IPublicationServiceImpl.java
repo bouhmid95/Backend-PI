@@ -92,7 +92,7 @@ public class IPublicationServiceImpl implements IPublicationService {
 	}
 
 	@Override
-	public List<Publication> findPublicationByUser(Integer idUser) {
+	public List<Publication> findPublicationByUser(int idUser) {
 		return this.publicationRepository.findPublicationByUserId(idUser);
 	}
 	

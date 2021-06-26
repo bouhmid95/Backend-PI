@@ -1,5 +1,7 @@
 package tn.esprit.services;
 
+import java.util.List;
+
 import tn.esprit.entities.User;
 
 public interface IUserService {
@@ -29,7 +31,9 @@ public interface IUserService {
 	
 	public User updatePassword(String username,String password, String confirmationCode) ;
 
+	public List statLockUnlockUser();
 
+	
 
 	
 	

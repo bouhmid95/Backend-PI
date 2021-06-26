@@ -24,7 +24,7 @@ public interface IPublicationService {
 
 	public int dislikePublication (Publication publication);
 	
-	public List<Publication> findPublicationByUser(Integer idUser);
+	public List<Publication> findPublicationByUser(int idUser);
 	
 	public int getNombrePublicationJPQL();
 
