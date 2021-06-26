@@ -96,8 +96,7 @@ public class RestControllerPublication {
     @GetMapping(value = "getNombrePublication")
     @ResponseBody
 	public int getNombrePublication() {
-		
-		return iPublicationService.getNombrePublicationJPQL();
+	return iPublicationService.getNombrePublicationJPQL();
 	}
 	
 	

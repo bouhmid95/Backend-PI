@@ -15,7 +15,7 @@ public interface PublicationRepository extends CrudRepository<Publication, Integ
     public int countpublications();
 	
 	
-	@Query("select p from Publication p join p.user u where u.id=:id")
+	@Query("select p from Publication p inner join User u on u.id=p.user.id where u.id=:id")
 	public List<Publication> findPublicationByUserId(@Param("id") int id);
 }
 
