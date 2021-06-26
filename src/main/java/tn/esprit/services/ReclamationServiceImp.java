@@ -33,12 +33,12 @@ public class ReclamationServiceImp implements IReclamationService {
 	@Override
 	public int updateProduct(Reclamation reclamation) {
 		// TODO Auto-generated method stub
-		Reclamation oldReclamation = reclamationRepository.findById(reclamation.getId()).orElse(null);
-		oldReclamation.setStatus(reclamation.getStatus());
-		oldReclamation.setMessage(reclamation.getMessage());
-		oldReclamation.setSubject(reclamation.getSubject());
-		oldReclamation.setUser(reclamation.getUser());
-		reclamationRepository.save(oldReclamation);
+		Reclamation object = reclamationRepository.findById(reclamation.getId()).orElse(null);
+		if(object!=null) {
+			reclamation.setId(object.getId());
+			reclamationRepository.save(reclamation);
+			return 1;
+		}
 		return 0;
 	}
 
@@ -66,14 +66,20 @@ public class ReclamationServiceImp implements IReclamationService {
 		return (List<Object>)reclamationRepository.getStatusReclamtionByDate();
 	}
 
-	public List<Object> findByStatusStartsWith(String status) {
+	public List<Reclamation> findByStatusStartsWith(String status) {
 		// TODO Auto-generated method stub
-		return (List<Object>)reclamationRepository.findByStatusStartsWith(status);
+		return (List<Reclamation>)reclamationRepository.findByStatusStartsWith(status);
 	}
 	
-	public List<Object> searchByMessageLike(String message) {
+	public List<Reclamation> searchByMessageLike(String message) {
 		// TODO Auto-generated method stub
-		return (List<Object>)reclamationRepository.searchByMessageLike(message);
+		return (List<Reclamation>)reclamationRepository.searchByMessageLike(message);
+	}
+	
+	public int updateJustStatusById (int id,String status)
+	{
+		reclamationRepository.updateJustStatusById(id, status);
+		return 1 ;
 	}
 	
 

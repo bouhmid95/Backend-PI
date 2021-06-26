@@ -74,19 +74,26 @@ public class RestReclamationController {
 	
 	@GetMapping(value = "/findByStatusInProgress")
 	@ResponseBody
-	public List<Object> findByStatusInProgress() {
+	public List<Reclamation> findByStatusInProgress() {
 		return reclamationServices.findByStatusStartsWith("IN");
 	}
 	
 	@GetMapping(value = "/findByStatusDone")
 	@ResponseBody
-	public List<Object> findByStatusDone() {
+	public List<Reclamation> findByStatusDone() {
 		return reclamationServices.findByStatusStartsWith("DONE");
 	}
 	
 	@GetMapping(value = "/findByGivenMessage/{message}")
 	@ResponseBody
-	public List<Object> findByGivenMessage(@PathVariable("message") String message ) {
+	public List<Reclamation> findByGivenMessage(@PathVariable("message") String message ) {
 		return reclamationServices.searchByMessageLike(message);
 	}
+	
+	@PostMapping(value = "/updateStatus/{id}/{message}")
+	@ResponseBody
+	public int updateJustStatusById(@PathVariable("id") int id ,@PathVariable("message") String message ) {
+		 return reclamationServices.updateJustStatusById(id,message);
+	}
+	
 }
