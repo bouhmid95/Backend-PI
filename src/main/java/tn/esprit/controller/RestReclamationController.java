@@ -60,4 +60,15 @@ public class RestReclamationController {
 		return reclamationServices.findAllReclamation();
 	}
 
+	@GetMapping(value = "/getNumberReclamation")
+	@ResponseBody
+	public int getNumberReclamation() {
+		return reclamationServices.getNumberReclamation();
+	}
+	
+	@GetMapping(value = "/getStatusReclamtionWithDate")
+	@ResponseBody
+	public List<Object> getStatusReclamtionByDate() {
+		return reclamationServices.getStatusReclamtionByDate();
+	}
 }
