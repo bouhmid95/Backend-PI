@@ -66,5 +66,12 @@ public class ReclamationServiceImp implements IReclamationService {
 		return (List<Object>)reclamationRepository.getStatusReclamtionByDate();
 	}
 
+	public List<Object> findByStatusStartsWith(String status) {
+		// TODO Auto-generated method stub
+		return (List<Object>)reclamationRepository.findByStatusStartsWith(status);
+	}
+	
+
+
 
 }

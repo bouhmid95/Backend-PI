@@ -18,4 +18,9 @@ public interface ReclamationRepository extends CrudRepository<Reclamation, Integ
 	
 	@Query(value = "SELECT status,publicationDate FROM Reclamation")
 	List<Object> getStatusReclamtionByDate();
+	
+	
+	List<Object> findByStatusStartsWith(String status);
+	
+
 }

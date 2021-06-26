@@ -71,4 +71,16 @@ public class RestReclamationController {
 	public List<Object> getStatusReclamtionByDate() {
 		return reclamationServices.getStatusReclamtionByDate();
 	}
+	
+	@GetMapping(value = "/findByStatusInProgress")
+	@ResponseBody
+	public List<Object> findByStatusInProgress() {
+		return reclamationServices.findByStatusStartsWith("IN");
+	}
+	
+	@GetMapping(value = "/findByStatusDone")
+	@ResponseBody
+	public List<Object> findByStatusDone() {
+		return reclamationServices.findByStatusStartsWith("DONE");
+	}
 }
