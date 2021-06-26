@@ -88,8 +88,8 @@ public class RestControllerPublication {
 	}
 	
 	@GetMapping("/findPublicationByUser/{idUser}")
-	public List <Publication> findPublicationByUser(@PathVariable("idUser") Integer idUser) {
-		return this.findPublicationByUser(idUser);
+	public List <Publication> findPublicationByUser(@PathVariable("idUser") int idUser) {
+		return iPublicationService.findPublicationByUser(idUser);
 	}
 	
     // URL : http://localhost:8081/SpringMVC/servlet/getNombreEmployeJPQL
