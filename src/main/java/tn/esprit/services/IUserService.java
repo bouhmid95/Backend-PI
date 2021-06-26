@@ -19,6 +19,13 @@ public interface IUserService {
 	public void unlockUser();
 	
 	public void lockUser(User user);
+	
+	public User resetPassword(String username);
+
+	
+	public User updatePassword(String username,String password, String confirmationCode) ;
+
+
 
 	
 	
