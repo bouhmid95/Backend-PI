@@ -109,6 +109,7 @@ public class UserServiceImpl implements IUserService {
 		return 0;
 	}
 
+	@Override
 	public void lockUser(User user) {
 		User oldUser = userRepository.getUserByUsername(user.getUsername());
 		oldUser.setBlockedDate(new Date());
