@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -106,6 +107,21 @@ public class RestControlUser {
 	@GetMapping(value = "/unlockUser")
 	public void unlockUser() {
 		iUserService.unlockUser();
+	}
+
+	@GetMapping(value = "/resetPassword")
+	public User resetPassword(@RequestParam("username") String username) {
+		User user = iUserService.resetPassword(username);
+		user.getConfirmCode();
+		emailServiceImpl.sendSimpleMessage(user.getEmail(), "Reset Password",
+				"Rest password code :" + user.getConfirmCode());
+		return user;
+	}
+
+	@PostMapping("/updatePassword")
+	@ResponseBody
+	public User updatePassword(@RequestBody User user) {
+		return iUserService.updatePassword(user.getUsername(), user.getPassword(), user.getConfirmCode());
 	}
 
 }

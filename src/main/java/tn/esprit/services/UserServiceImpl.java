@@ -123,8 +123,29 @@ public class UserServiceImpl implements IUserService {
 			if (new Date().compareTo(user.getBlockedDate()) > 0) {
 				user.setBlockedDate(null);
 				user.setBlocked(false);
+				user.setWrongPassword(0);
 				userRepository.save(user);
 			}
 		}
+	}
+
+	@Override
+	public User resetPassword(String username) {
+		User user = userRepository.getUserByUsername(username);
+		Random random = new Random();
+		user.setConfirmCode(String.valueOf(random.nextInt(10000000)));
+		userRepository.save(user);
+		return user;
+	}
+
+	@Override
+	public User updatePassword(String username,String password, String confirmationCode) {
+		User user = userRepository.getUserByUsername(username);
+		if (user.getConfirmCode().equals(confirmationCode)) {
+			user.setPassword(new BCryptPasswordEncoder().encode(password));
+			userRepository.save(user);
+		}
+
+		return user;
 	}
 }
