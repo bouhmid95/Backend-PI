@@ -1,10 +1,14 @@
 package tn.esprit;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import tn.esprit.dto.CountOrderByUser;
+import tn.esprit.entities.User;
 import tn.esprit.repository.OrderRepository;
 import tn.esprit.util.pdf.PDFGenerator;
 
@@ -14,6 +18,8 @@ public class ProjetPiBackendApplication implements CommandLineRunner {
 	@Autowired
 	public PDFGenerator pfdGenerator ;
 	
+	@Autowired
+	private OrderRepository orderRepo ;
 
 	public static void main(String[] args) {
 
@@ -24,8 +30,6 @@ public class ProjetPiBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("Debut PDF_GENERATE");
-		//pfdGenerator.generatePdfReport();
 	}
 
 }
