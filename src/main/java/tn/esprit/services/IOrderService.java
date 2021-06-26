@@ -1,5 +1,7 @@
 package tn.esprit.services;
 
+import java.util.List;
+
 import tn.esprit.entities.Order;
 
 public interface IOrderService {
@@ -11,5 +13,9 @@ public interface IOrderService {
 	public int updateOrder(Order order);
 
 	public Order findOrder(int idOrder);
+
+	public List<Order> findAllOrder();
+
+	public List<Order> findOrderByUserCriteria(Integer idUser);
 
 }

@@ -1,9 +1,11 @@
 package tn.esprit.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +14,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.entities.OrderDetails;
+import tn.esprit.entities.Product;
 import tn.esprit.entities.Stock;
+import tn.esprit.entities.User;
+import tn.esprit.repository.UserRepository;
+import tn.esprit.services.EmailServiceImpl;
 import tn.esprit.services.IStockService;
+import tn.esprit.services.IUserService;
 
 @RestController
 public class RestStockController {
@@ -21,6 +29,10 @@ public class RestStockController {
 	
 	@Autowired
 	IStockService StockServices;
+	@Autowired
+	UserRepository UserRepository;
+	@Autowired
+	EmailServiceImpl emailService;
 	
 	@PostMapping("/addStock")
 	@ResponseBody
@@ -36,6 +48,16 @@ public class RestStockController {
 		logger.info("---- update Stock Méthode ---");
 		StockServices.updateStock(Stock);
 		return Stock;
+	}
+	
+	
+	@PostMapping("/decrementStock")
+	@ResponseBody
+	public boolean DecrementStock(@RequestBody List<OrderDetails> orderDetails) {
+		if(StockServices.decrementFromStock(orderDetails))
+			return true;
+		
+		return false;
 	}
 
 	@DeleteMapping(value = "/deleteStock/{idStock}")
@@ -56,10 +78,40 @@ public class RestStockController {
 		logger.error("This is an error message");
 		return StockServices.findStock(idStock);
 	}
+	@GetMapping(value = "/findStockByProduct/{idProduct}")
+	public Stock findStockByProduct(@PathVariable("idProduct") int idProduct) {
+		
+		return StockServices.getStockByProduct(idProduct);
+	}
+	
+	
 
 	@GetMapping(value = "/findAllStock")
 	public List<Stock> findAllStock() {
 		return StockServices.findAllStock();
+	}
+	
+	
+	@Scheduled(fixedDelay = 100000)
+	public void sendOutOfStockAlert() {
+		System.out.println("I am here");
+		String text = "Les produit qui ont atteint le seuille de stock = 10 sont : \n";
+		List<Stock> availableList = StockServices.checkAlertStock();
+		
+		
+		User admin = UserRepository.getUserByUsername("admin");
+		System.out.println("la taille de liste est : ++++++++++++++++++++++++++++++"+ availableList.size());
+		if(availableList.size()>0) {
+		for(Stock st : availableList) {
+			Product produit = st.getProduct();
+		
+			//String qte = qte + String.valueOf(st.getQte()) ;
+			text = text + "\n Titre produit : "+ produit.getTitle()+" Quantité restante :"+st.getQte()+"\n";
+					;
+		}
+		emailService.sendSimpleMessage(admin.getEmail(), "Alerte Stock", text);
+		
+		}
 	}
 
 }
