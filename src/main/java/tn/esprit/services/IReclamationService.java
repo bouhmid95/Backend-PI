@@ -20,5 +20,7 @@ public interface IReclamationService {
 	public int getNumberReclamation() ;
 	
 	public List<Object> getStatusReclamtionByDate();
+	
+	
 
 }
