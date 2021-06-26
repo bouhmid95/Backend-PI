@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,8 @@ public class RestControlUser {
 	@PostMapping("/loginUser")
 	@ResponseBody
 	public User loginUser(@RequestBody User userLogin) {
+		logger.info(userLogin.getUsername() + "-----" + userLogin.getPassword());
+
 		User user = iUserService.autentificateUser(userLogin.getUsername(), userLogin.getPassword());
 		return user;
 	}
@@ -74,6 +77,51 @@ public class RestControlUser {
 	public User findUser(@PathVariable("idUser") int idUser) {
 		logger.info("---- find User Méthode ---");
 		return iUserService.findUser(idUser);
+	}
+	
+	
+	@PostMapping("/banUser")
+	@ResponseBody
+	public User banUser(@RequestBody User user) {
+		logger.info("---- Ban User Méthode ---");
+		iUserService.BanUser(user);
+		return user;
+	}
+	
+	@PostMapping("/unBanuser")
+	@ResponseBody
+	public User unBanUser(@RequestBody User user) {
+		logger.info("---- UnBan User Méthode ---");
+		iUserService.unBanUser(user);
+		return user;
+	}
+
+
+	@PostMapping("/lockUser")
+	@ResponseBody
+	public User lockUser(@RequestBody User user) {
+		iUserService.lockUser(user);
+		return user;
+	}
+
+	@GetMapping(value = "/unlockUser")
+	public void unlockUser() {
+		iUserService.unlockUser();
+	}
+
+	@GetMapping(value = "/resetPassword")
+	public User resetPassword(@RequestParam("username") String username) {
+		User user = iUserService.resetPassword(username);
+		user.getConfirmCode();
+		emailServiceImpl.sendSimpleMessage(user.getEmail(), "Reset Password",
+				"Rest password code :" + user.getConfirmCode());
+		return user;
+	}
+
+	@PostMapping("/updatePassword")
+	@ResponseBody
+	public User updatePassword(@RequestBody User user) {
+		return iUserService.updatePassword(user.getUsername(), user.getPassword(), user.getConfirmCode());
 	}
 
 }

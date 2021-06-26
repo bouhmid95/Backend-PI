@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.entities.Comment;
+import tn.esprit.entities.Order;
 import tn.esprit.entities.Publication;
 import tn.esprit.services.IPublicationService;
 
@@ -42,7 +42,7 @@ public class RestControllerPublication {
 	
 	@PostMapping("/updatePublication")
 	@ResponseBody
-	public Publication updateUser(@RequestBody Publication publication) {
+	public Publication updatePublication(@RequestBody Publication publication) {
 		logger.info("---- update publication Method ---");
 		iPublicationService.updatePublication(publication);
 		return publication;
@@ -62,5 +62,44 @@ public class RestControllerPublication {
 		
 		return iPublicationService.listspublications();
 	}
+	
+	@PostMapping("/validatePublication")
+	@ResponseBody
+	public Publication validatePublication(@RequestBody Publication publication) {
+		logger.info("---- validate publication Method ---");
+		iPublicationService.validatePublication(publication);
+		return publication;
+	}
+	
+	@PostMapping("/likePublication")
+	@ResponseBody
+	public Publication likePublication(@RequestBody Publication publication) {
+		logger.info("---- Like publication Method ---");
+		iPublicationService.likePublication(publication);
+		return publication;
+	}
+	
+	@PostMapping("/DislikePublication")
+	@ResponseBody
+	public Publication DislikePublication(@RequestBody Publication publication) {
+		logger.info("---- Disklike publication Method ---");
+		iPublicationService.dislikePublication(publication);
+		return publication;
+	}
+	
+	@GetMapping("/findPublicationByUser/{idUser}")
+	public List <Publication> findPublicationByUser(@PathVariable("idUser") Integer idUser) {
+		return this.findPublicationByUser(idUser);
+	}
+	
+    // URL : http://localhost:8081/SpringMVC/servlet/getNombreEmployeJPQL
+    @GetMapping(value = "getNombrePublication")
+    @ResponseBody
+	public int getNombrePublication() {
+		
+		return iPublicationService.getNombrePublicationJPQL();
+	}
+	
+	
 	
 }

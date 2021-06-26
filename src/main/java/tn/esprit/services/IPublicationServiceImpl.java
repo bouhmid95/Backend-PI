@@ -55,4 +55,49 @@ public class IPublicationServiceImpl implements IPublicationService {
 	public List<Publication> listspublications() {
 		 return (List<Publication>) publicationRepository.findAll();
 	}
+
+	@Override
+	public int validatePublication(Publication publication) {
+		Publication newpublication = publicationRepository.findById(publication.getId()).orElse(null);
+		if (newpublication!=null) {
+			newpublication.setValidated(true);
+			publicationRepository.save(newpublication);
+			return 1;
+		}	
+		return 0;
+	}
+
+	@Override
+	public int likePublication(Publication publication) {
+		Publication newpublication = publicationRepository.findById(publication.getId()).orElse(null);
+		if (newpublication!=null) {
+			int nblikes = newpublication.getNbLike();
+			newpublication.setNbLike(nblikes+1);
+			publicationRepository.save(newpublication);
+			return 1;
+		}	
+		return 0;
+	}
+
+	@Override
+	public int dislikePublication(Publication publication) {
+		Publication newpublication = publicationRepository.findById(publication.getId()).orElse(null);
+		if (newpublication!=null) {
+			int nbDislikes = newpublication.getNbDisLike();
+			newpublication.setNbDisLike(nbDislikes+1);
+			publicationRepository.save(newpublication);
+			return 1;
+		}	
+		return 0;
+	}
+
+	@Override
+	public List<Publication> findPublicationByUser(Integer idUser) {
+		return this.publicationRepository.findPublicationByUserId(idUser);
+	}
+	
+	public int getNombrePublicationJPQL() {
+		return publicationRepository.countpublications();
+	}
+	
 }
