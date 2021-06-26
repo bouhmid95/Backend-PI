@@ -120,8 +120,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void unlockUser() {
 		List<User> users = userRepository.getLockedUsers(true);
+		long MILLIS_PER_DAY = 24 * 60 * 60 * 1000L;
 		for (User user : users) {
-			if (new Date().compareTo(user.getBlockedDate()) > 0) {
+			boolean moreThanDay = Math.abs(new Date().getTime() - user.getBlockedDate().getTime()) > MILLIS_PER_DAY;
+			if (moreThanDay) {
 				user.setBlockedDate(null);
 				user.setBlocked(false);
 				user.setWrongPassword(0);
