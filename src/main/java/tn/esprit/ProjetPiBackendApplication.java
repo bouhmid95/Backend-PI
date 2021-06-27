@@ -1,7 +1,5 @@
 package tn.esprit;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -9,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
-import tn.esprit.dto.CountOrderByUser;
-import tn.esprit.entities.User;
 import tn.esprit.repository.OrderRepository;
 import tn.esprit.util.pdf.PDFGenerator;
 
@@ -24,6 +20,8 @@ public class ProjetPiBackendApplication implements CommandLineRunner {
 	
 	@Autowired
 	private OrderRepository orderRepo ;
+
+
 
 	public static void main(String[] args) {
 
