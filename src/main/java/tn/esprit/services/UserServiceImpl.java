@@ -1,5 +1,6 @@
 package tn.esprit.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -7,6 +8,7 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import tn.esprit.entities.User;
 import tn.esprit.repository.UserRepository;
@@ -75,7 +77,7 @@ public class UserServiceImpl implements IUserService {
 		oldUser.setLastName(user.getLastName());
 		oldUser.setEmail(user.getEmail());
 		oldUser.setUsername(user.getUsername());
-		oldUser.setPassword(user.getPassword());
+		oldUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		oldUser.setUserRole(user.getUserRole());
 		userRepository.save(oldUser);
 		return 0;
@@ -156,6 +158,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List statLockUnlockUser() {
 		return userRepository.getLockUnlockUser();
+	}
+
+	@Override
+	public List<User> getUserByFirstNameOrLastname(String firstName, String lastName) {
+		return userRepository.getUserByFirstNameOrLastname(firstName, lastName);
 	}
 
 }

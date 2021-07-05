@@ -131,5 +131,10 @@ public class RestControlUser {
 	public List statLockUnlockUser() {
 		return iUserService.statLockUnlockUser();
 	}
+	
+	@GetMapping(value = "/userByFirstLastname")
+	public List userByFirstLastname(@RequestParam("firstName") String firstName,@RequestParam("lastName") String lastName) {
+		return iUserService.getUserByFirstNameOrLastname(firstName, lastName);
+	}
 
 }

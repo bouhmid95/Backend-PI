@@ -34,6 +34,7 @@ public interface IUserService {
 	public List statLockUnlockUser();
 
 	
+	public List getUserByFirstNameOrLastname(String firstName, String lastName) ;
 
 	
 	
