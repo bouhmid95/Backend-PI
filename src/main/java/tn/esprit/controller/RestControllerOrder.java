@@ -25,6 +25,7 @@ import com.itextpdf.text.Document;
 import tn.esprit.dto.CountOrderByUser;
 import tn.esprit.entities.Order;
 import tn.esprit.entities.User;
+import tn.esprit.services.EmailServiceImpl;
 import tn.esprit.services.OrderServiceImpl;
 import tn.esprit.util.pdf.PDFGenerator;
 
@@ -38,6 +39,9 @@ public class RestControllerOrder {
 	
 	@Autowired
 	public PDFGenerator pdfGenerator ;
+	
+	@Autowired
+	private EmailServiceImpl emailService ;
 	
 	@PostMapping("/addOrder")
 	@ResponseBody
@@ -62,6 +66,11 @@ public class RestControllerOrder {
 	@GetMapping("/ListOrder")
 	public List<Order> findAllOrder() {
 		return this.orderService.findAllOrder();
+	}
+	
+	@GetMapping("/findOrderById/{idOrder}")
+	public Order findOrderById(@PathVariable("idOrder") Integer idOrder) {
+		return this.orderService.findOrder(idOrder);
 	}
 	
 	@GetMapping("/findOrderByUser/{idUser}")
@@ -89,10 +98,13 @@ public class RestControllerOrder {
         sos.write(data);
         sos.flush();
         sos.close();
-
+        
+        this.emailService.sendSimpleMessage("skander1673@gmail.com", "PDF", "votre doc est généré");
+        
         } catch (Exception exception) {
         		exception.printStackTrace();
         }
+        
 		return "" ;
 	}
 
