@@ -75,11 +75,17 @@ public class RestControlUser {
 	}
 
 	// http://localhost:8082/SpringMVC/servlet/findUser/1
-
 	@GetMapping(value = "/findUser/{idUser}")
 	public User findUser(@PathVariable("idUser") int idUser) {
 		logger.info("---- find User Méthode ---");
 		return iUserService.findUser(idUser);
+	}
+	
+	// http://localhost:8082/SpringMVC/servlet/findAllUser/
+	@GetMapping(value = "/findAllUser")
+	public List<User> findAllUser() {
+		logger.info("---- find All User Méthode ---");
+		return iUserService.findAllUser();
 	}
 
 	@PostMapping("/banUser")
