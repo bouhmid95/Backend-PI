@@ -91,6 +91,12 @@ public class UserServiceImpl implements IUserService {
 		// TODO Auto-generated method stub
 		return userRepository.findById(idUser).orElse(null);
 	}
+	
+	@Override
+	public List<User> findAllUser() {
+		// TODO Auto-generated method stub
+		return (List<User>) userRepository.findAll();
+	}
 
 	@Override
 	public int BanUser(User user) {
