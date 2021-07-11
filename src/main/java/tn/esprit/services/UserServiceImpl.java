@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import tn.esprit.entities.User;
+import tn.esprit.entities.UserRole;
 import tn.esprit.repository.UserRepository;
 
 @Service
@@ -25,6 +26,8 @@ public class UserServiceImpl implements IUserService {
 		Random random = new Random();
 		user.setConfirmCode(String.valueOf(random.nextInt(10000000)));
 		user.setConfirmed(false);
+		if(user.getUserRole()==null)
+			user.setUserRole(UserRole.USER);
 		userRepository.save(user);
 		return user.getId();
 	}
@@ -77,7 +80,7 @@ public class UserServiceImpl implements IUserService {
 		oldUser.setLastName(user.getLastName());
 		oldUser.setEmail(user.getEmail());
 		oldUser.setUsername(user.getUsername());
-		oldUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+		//oldUser.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		oldUser.setUserRole(user.getUserRole());
 		userRepository.save(oldUser);
 		return 0;
