@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.entities.Comment;
+import tn.esprit.entities.Publication;
 import tn.esprit.repository.CommentRepository;
 
 @Service
@@ -30,9 +31,13 @@ public class CommentServiceImpl implements ICommentService{
 
 	@Override
 	public int updateComment(Comment comment) {
-		// TODO Auto-generated method stub
-		return 0;
+	Comment oldcomment = commentrepository.findById(comment.getId()).orElse(null);
+	oldcomment.setContent(comment.getContent());
+	oldcomment.setPublicationDate(comment.getPublicationDate());
+	commentrepository.save(oldcomment);
+	return 0;
 	}
+	
 
 	@Override
 	public Comment findComment(int idComment) {

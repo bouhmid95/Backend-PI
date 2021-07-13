@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.entities.Comment;
+import tn.esprit.entities.Publication;
+import tn.esprit.entities.User;
 import tn.esprit.services.ICommentService;
+import tn.esprit.services.IUserService;
 
 @RestController
 public class RestCommentController {
@@ -22,22 +25,26 @@ public class RestCommentController {
 
 @Autowired
 ICommentService commentservice;
+@Autowired
+IUserService IUserService;
 	
 	@PostMapping("/addComment")
 	@ResponseBody
 	public Comment addCategory(@RequestBody Comment comment) {
+		User u = IUserService.findUser(comment.getIdUser());
+		comment.setUser(u);
 		logger.info("---- ajouter Comment Méthode ---");
 		commentservice.addComment(comment);
 		return comment;
 	}
 	
-//	@PostMapping("/updateCategory")
-//	@ResponseBody
-//	public Category updateCategory(@RequestBody Category category) {
-//		logger.info("---- update Comment Méthode ---");
-//		categoryService.updateCategory(category);
-//		return category;
-//	}
+	@PostMapping("/updateComment")
+	@ResponseBody
+	public Comment updatePublication(@RequestBody Comment comment) {
+		logger.info("---- update Comment Method ---");
+		commentservice.updateComment(comment);
+		return comment;
+	}
 
 	@DeleteMapping(value = "/deleteComment/{idComment}")
 	public int deleteComment(@PathVariable("idComment") int idComment) {

@@ -28,5 +28,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 	
 	@Query("select c.blocked,count(1) from User c group by c.blocked ")
 	public List getLockUnlockUser();
-
 }

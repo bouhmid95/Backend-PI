@@ -20,6 +20,8 @@ public class IPublicationServiceImpl implements IPublicationService {
 	PublicationRepository publicationRepository;
 
 
+
+
 	@Override
 	public int addPublication(Publication publication) {
 		publicationRepository.save(publication);
@@ -37,10 +39,9 @@ public class IPublicationServiceImpl implements IPublicationService {
 	public int updatePublication(Publication publication) {
 		Publication oldpublication = publicationRepository.findById(publication.getId()).orElse(null);
 		oldpublication.setContent(publication.getContent());
-		oldpublication.setNbDisLike(publication.getNbDisLike());
-		oldpublication.setNbLike(publication.getNbLike());
-		oldpublication.setPublicationDate(publication.getPublicationDate());
-		oldpublication.setUser(publication.getUser());
+		oldpublication.setTitle(publication.getTitle());
+		oldpublication.setImage(publication.getImage());
+		oldpublication.setValidated(publication.isValidated());
 		publicationRepository.save(oldpublication);
 		return 0;
 	}
@@ -98,6 +99,21 @@ public class IPublicationServiceImpl implements IPublicationService {
 	
 	public int getNombrePublicationJPQL() {
 		return publicationRepository.countpublications();
+	}
+
+	@Override
+	public List<Publication> getValidatedPublications() {
+		return publicationRepository.getValidatedPublications();
+	}
+
+	@Override
+	public List<Publication> getNotValidatedPublications() {
+		return publicationRepository.getNotValidatedPublications();
+	}
+	
+	
+	public List getnbValidated() {
+		return publicationRepository.getnbValidated();
 	}
 	
 }
