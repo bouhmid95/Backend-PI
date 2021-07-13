@@ -30,6 +30,7 @@ public class Order implements Serializable {
 	private String typePaiement;
 	private String adresse;
 	private String codePostal;
+	private transient int idUser ;
     
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotFound(action = NotFoundAction.IGNORE)
@@ -129,6 +130,14 @@ public class Order implements Serializable {
 
 	public void setCodePostal(String codePostal) {
 		this.codePostal = codePostal;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 
 }
