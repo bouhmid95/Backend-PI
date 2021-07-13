@@ -3,6 +3,7 @@ package tn.esprit.controller;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -24,8 +25,14 @@ import com.itextpdf.text.Document;
 
 import tn.esprit.dto.CountOrderByUser;
 import tn.esprit.entities.Order;
+import tn.esprit.entities.OrderDetails;
+import tn.esprit.entities.Product;
 import tn.esprit.entities.User;
+import tn.esprit.repository.OrderDetailsRepository;
+import tn.esprit.services.EmailServiceImpl;
+import tn.esprit.services.IProductService;
 import tn.esprit.services.OrderServiceImpl;
+import tn.esprit.services.UserServiceImpl;
 import tn.esprit.util.pdf.PDFGenerator;
 
 @RestController
@@ -37,13 +44,53 @@ public class RestControllerOrder {
 	private OrderServiceImpl orderService;
 	
 	@Autowired
+	private UserServiceImpl userService;
+	
+	@Autowired
 	public PDFGenerator pdfGenerator ;
+	
+	@Autowired
+	private EmailServiceImpl emailService ;
+	
+	@Autowired
+	private IProductService productServices;
+	
+	@Autowired
+	private OrderDetailsRepository orderDetailsService ;
 	
 	@PostMapping("/addOrder")
 	@ResponseBody
 	public Order addOrder(@RequestBody Order order) {
+		User u = userService.findUser(order.getIdUser());
+		order.setUser(u);
 		this.orderService.addOrder(order);
 		return order ;
+	}
+	
+	@PostMapping("/addOrderDetails")
+	@ResponseBody
+	public List<OrderDetails> addOrderDetails(@RequestBody List<OrderDetails> orderDetailsList) {
+		List<OrderDetails> orderDetailsListToSave = new ArrayList<>();
+		for(OrderDetails orderDetail:orderDetailsList) {
+			Product product =  productServices.findProduct(orderDetail.getIdProduct());
+			Order order = orderService.findOrder(orderDetail.getIdOrder());
+			orderDetail.setOrder(order);
+			orderDetail.setProduct(product);
+			orderDetailsListToSave.add(orderDetail);
+		}
+		return (List<OrderDetails>) this.orderDetailsService.saveAll(orderDetailsListToSave) ;
+	}
+	
+	@GetMapping("/ListOrderDetailsByOrderId/{idOrderDetail}")
+	public List<OrderDetails> ListOrderDetailsByOrderId(@PathVariable("idOrderDetail") int idOrderDetail) {
+		List<OrderDetails> listOrderDetails = (ArrayList<OrderDetails>) this.orderDetailsService.findOrderDetailsByOrderId(idOrderDetail);
+		List<OrderDetails> listOrderDetailsToReturn = new ArrayList<>();
+		for(OrderDetails orderDetails : listOrderDetails) {
+			orderDetails.setIdOrder(orderDetails.getOrder().getId());
+			orderDetails.setIdProduct(orderDetails.getProduct().getId());
+			listOrderDetailsToReturn.add(orderDetails);
+		}
+		return listOrderDetailsToReturn;
 	}
 	
 	@PutMapping("/updateOrder")
@@ -62,6 +109,11 @@ public class RestControllerOrder {
 	@GetMapping("/ListOrder")
 	public List<Order> findAllOrder() {
 		return this.orderService.findAllOrder();
+	}
+	
+	@GetMapping("/findOrderById/{idOrder}")
+	public Order findOrderById(@PathVariable("idOrder") Integer idOrder) {
+		return this.orderService.findOrder(idOrder);
 	}
 	
 	@GetMapping("/findOrderByUser/{idUser}")
@@ -89,10 +141,13 @@ public class RestControllerOrder {
         sos.write(data);
         sos.flush();
         sos.close();
-
+        
+        this.emailService.sendSimpleMessage("skander1673@gmail.com", "PDF", "votre doc est généré");
+        
         } catch (Exception exception) {
         		exception.printStackTrace();
         }
+        
 		return "" ;
 	}
 
